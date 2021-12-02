@@ -1,0 +1,146 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api desafio ignote - Introdução ao solid",
+        "description": "Api desafio ignote - Introdução ao solid",
+        "version": "1.0.0"
+    },
+    "tags": [
+        {
+            "name": "Users",
+            "description": "User management"
+        }
+    ],
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Create a user",
+                "description": "<h3>Received a user name and email to  create a new user</h3>",
+                "requestBody": {
+                    "required": [
+                        "name",
+                        "email"
+                    ],
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required   ": [
+                                    "name",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "user test",
+                                    "email": "usertest@email.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "user_id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "example": {
+                                            "name": "user test",
+                                            "email": "usertest@email.com"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "user_id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+               "responses":{
+                   "200":{
+                       "description": "Success",
+                       "content":{
+                           "application/json":{
+                               "schema":{
+                                   "type":"object",
+                                   "items":{
+                                       "type":"object",
+                                       "properties":{
+                                           "name": {
+                                               "type":"string"
+
+                                            }
+                                       }
+                                   }
+                               }
+                           }
+                       }
+                   }
+               }
+            }
+        },
+        "/users/{user_id}/admin": {
+            "patch": {}
+        }
+    }
+}
